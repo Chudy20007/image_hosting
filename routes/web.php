@@ -32,12 +32,12 @@ Route::get('/edit','UserController@edit');
 Route::get('/create_comment','PicturesController@create_comment');
 Route::get('/albums/create','AlbumsController@create');
 Route::get('pictures/{id}/destroy','PicturesController@destroy');
-Route::get('/albums/{id}/destroy','AlbumsController@destroy');
+
 Route::delete('/albums/{id}','AlbumsController@destroy');
 Route::get('/albums/{id}','AlbumsController@show');
 Route::get('/albums/{id}/edit','AlbumsController@edit');
 Route::patch('/albums/{id}/update','AlbumsController@edit_pic');
-Route::get('/pictures','PicturesController@index');
+//Route::get('/pictures','PicturesController@index');
 
 
 
@@ -76,7 +76,9 @@ Route::get('/user/{id}/edit','AdminController@edit', function () {
 Route::post('/albums_ratings_list/{id}/edit','ImageRatingController@edit_album_rate');
 
 Route::group(['middleware' => ['auth', 'admin']], function() {
-    Route::patch('//album_comments/{id}/edit','CommentsController@album_com_update');
+    Route::post('/albums/{id}/edit','AlbumsController@edit');
+Route::get('/albums_list_a','AdminController@albums_list');
+Route::patch('//album_comments/{id}/edit','CommentsController@album_com_update');
 Route::patch('/pictures_ratings_list/{id}/activate','AdminController@activate_rate');
 Route::delete('/pictures_ratings_list/{id}/destroy','AdminController@destroy_rate');
 Route::post('/pictures_ratings_list/{id}/edit','ImageRatingController@edit_rate');
@@ -88,7 +90,7 @@ Route::delete('/albums_ratings_list/{id}/destroy','AdminController@destroy_album
     Route::delete('/pictures_ratings_list/{id}/destroy','AdminController@destroy_rate');
     Route::get('/admin_panel','AdminController@admin_panel');
     Route::patch('/comments_list/{id}/activate','CommentsController@activate');
-
+    Route::delete('pictures/{id}/destroy','PicturesController@destroy');
     Route::patch('/users_list/{id}/activate','AdminController@activate');
     Route::patch('/pictures_list/{id}/activate','PicturesController@activate');
     Route::delete('/users_list/{id}/destroy','AdminController@destroy');
@@ -101,13 +103,14 @@ Route::delete('/albums_ratings_list/{id}/destroy','AdminController@destroy_album
     Route::get('/comments_list','AdminController@comments_list');
     Route::get('/pictures_ratings_list','AdminController@pictures_ratings_list');
     Route::get('/albums_ratings_list','AdminController@albums_ratings_list');
-    Route::post('/comment/{id}/edit','CommentsController@edit');
+    Route::delete('/albums/{id}/destroy','AlbumsController@destroy');
+Route::patch('/albums/{id}/activate','AlbumsController@activate');
     Route::post('/user/{id}/edit','AdminController@edit');
 
     Route::post('/user/{id}/update','AdminController@update');
     Route::post('/user/store','AdminController@store');
     Route::get('/user/create','AdminController@create');
-    Route::get('/pictures','PicturesController@index');
+ 
     Route::post('user_panel/find_pictures','PicturesController@find_pictures');
     Route::post('albums_panel/find_albums','AlbumsController@find_albums');
 
@@ -121,7 +124,7 @@ Route::delete('/albums_ratings_list/{id}/destroy','AdminController@destroy_album
 });
 
 Route::group(['middleware' => ['web']],function(){
- 
+    Route::get('/pictures','PicturesController@index');
     Route::get('/show_pic/{uploadLink}','PicturesController@show_pic');
     Route::get('/show_alb/{uploadLink}','AlbumsController@show_alb');
     Route::post('pictures/find_pictures','PicturesController@find_pictures');
@@ -139,12 +142,14 @@ Auth::routes();
 
 
 });
-
+Route::get('albums','AlbumsController@albums_list');
+Route::get('pictures','PicturesController@index');
 Route::group(['middleware'=>['auth']],function(){
-   
-    Route::resource('pictures','PicturesController');
+    Route::patch('pictures/{id}update','PicturesController@update');
+    Route::get('pictures/{id}/edit','PicturesController@edit');
+    Route::post('/comment/{id}/edit','CommentsController@edit');
+    Route::get('pictures/create','PicturesController@create');
+    Route::get('pictures/{id}','PicturesController@show');
+    Route::post('pictures/store','PicturesController@store');
     Route::resource('comment','CommentsController');
 });
-
-
-

@@ -1,8 +1,8 @@
 @extends('main') @section('content')
 <div class="container">
     <div class="row">
-            <div class='col-md-1'>
-                </div>
+        <div class='col-md-1'>
+        </div>
         <div class="col-md-10 picture">
             <div class="panel panel-default card">
                 <div class="panel-heading"></div>
@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class='col-md-1'>
-            </div>
+        </div>
     </div>
 </div>
 @endsection

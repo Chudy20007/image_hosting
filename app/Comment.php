@@ -12,20 +12,17 @@ class Comment extends Model
         'picture_id',
         'is_active',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     public function picture()
     {
-        return $this->belongsTo('App\Picture','id');
+        return $this->belongsTo('App\Picture', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
-
-
-
 
 }

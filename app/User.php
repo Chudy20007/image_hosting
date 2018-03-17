@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Auth;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'is_active'
+        'name', 'email', 'password', 'is_active',
     ];
 
     /**
@@ -24,17 +25,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token',
     ];
 
     public function pictures()
     {
-        return $this->hasMany('App\Picture','user_id');
+        return $this->hasMany('App\Picture', 'user_id');
     }
 
     public function albums()
     {
-        return $this->hasMany('App\Album','user_id');
+        return $this->hasMany('App\Album', 'user_id');
     }
 
     public function albums_picture()
@@ -44,12 +45,12 @@ class User extends Authenticatable
 
     public function comments()
     {
-        return $this->hasMany('App\Comment','user_id');
+        return $this->hasMany('App\Comment', 'user_id');
     }
-public function comment()
-{
-    return $this->belongsTo('App\User','id');
-}
+    public function comment()
+    {
+        return $this->belongsTo('App\User', 'id');
+    }
     public function album_comments()
     {
         return $this->hasMany('App\AlbumComment');
@@ -61,12 +62,12 @@ public function comment()
 
     public function users_rate()
     {
-        return $this->hasMany('App\ImageRating','picture_id','id');
+        return $this->hasMany('App\ImageRating', 'picture_id', 'id');
     }
 
     public function user_rate()
     {
-        return $this->hasOne('App\ImageRating')->where('user_id','=',Auth::id())->where('is_active','=',true);
+        return $this->hasOne('App\ImageRating')->where('user_id', '=', Auth::id())->where('is_active', '=', true);
     }
 
     public function getEmail()

@@ -22,7 +22,7 @@
 
         <div class='row'>
             <div class='col-md-12 col-sm-12'>
-                    <img class='img-thumbnail picture-show' src="{{ URL::asset($picture[0]->source)}}">
+                <img class='img-thumbnail picture-show' src="{{ URL::asset($picture[0]->source)}}">
             </div>
         </div>
 

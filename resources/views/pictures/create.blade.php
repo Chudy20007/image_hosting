@@ -1,7 +1,7 @@
 @extends('main') @section('content')
 <div class='row'>
-        <div class='col-md-2'>
-        </div>
+    <div class='col-md-2'>
+    </div>
     <div class='col-md-8 picture'>
         <div class='card'>
             <div class='panel-body'>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class='col-md-2'>
-        </div>
+    </div>
 </div>
 
 @stop

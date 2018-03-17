@@ -25,7 +25,7 @@ class CreateAlbumRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'pictures_id' => 'required'
+            'pictures_id' => 'required',
             //
         ];
     }

@@ -10,7 +10,7 @@ class AlbumComment extends Model
         'comment',
         'user_id',
         'album_id',
-        'is_active'
+        'is_active',
     ];
 
     public function comment()
@@ -20,6 +20,6 @@ class AlbumComment extends Model
 
     public function user()
     {
-        return $this ->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

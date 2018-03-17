@@ -9,7 +9,7 @@
 
 
                 <div class='form-group'>
-                    <div class='col-md-6'>
+                    <div class='col-md-12 text-center'>
                         {!! Form::submit('Edit comment',['class'=>'btn btn-info']) !!} {!! Form::close() !!}
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <div class="topNav" id="mainNav">
-  
-  <a class='logo' href="pictures">
+
+  <a class='logo' href="{{URL::asset('pictures')}}">
     <img src="{{URL::asset('css/img/logo.png')}}" alt="Image Soft" />
   </a>
   <a class='menuOption' href="{{URL::asset('pictures')}}">Pictures</a>
@@ -20,12 +20,12 @@
             <a href="{{URL::asset('pictures_list')}}">Pictures</a>
           </li>
           <li class='z'>
-            <a href="{{URL::asset('albums_list')}}">Albums</a>
+            <a href="{{URL::asset('albums_list_a')}}">Albums</a>
             <ul class='x'>
-            <li>
+              <li>
                 <a href="{{URL::asset('album_comments_list')}}">Albums comments</a>
               </li>
-          </ul>
+            </ul>
           </li>
           <li>
             <a href="{{URL::asset('comments_list')}}">Comments</a>
@@ -41,7 +41,7 @@
     </ol>
   </a>
   @endif
-  
+
   <a class="menuOption">
     <ol>
       <li>
@@ -55,29 +55,29 @@
           </li>
           <li class='z'>
             <a href="{{URL::asset('albums/user/'.Auth::id())}}">Albums</a>
-            
+
           </li>
           <li>
             <a href="{{URL::asset('pictures/create')}}">Add pictures</a>
           </li>
           <li class='z'>
             <a href="{{URL::asset('albums/create')}}">Add albums</a>
-            
+
           </li>
         </ul>
       </li>
     </ol>
   </a>
-  
-  
-  
+
+
+
   @endif @if (Auth::user()) @php $src =explode("@",Auth::user()->id); @endphp
 
   <a class='menuOptionRight' href="{{URL::asset('logout')}}">
     Logout</a>
-    <a class='menuOptionRight' href="{{URL::asset('user/'.Auth::user()->id)}}">
-        <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$src[0].".jpg ")}}">
-        </a>
+  <a class='menuOptionRight' href="{{URL::asset('user/'.Auth::user()->id)}}">
+    <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$src[0]." .jpg ")}}">
+  </a>
   @else
   <a class='menuOptionRight' href="{{URL::route('login')}}">Login</a>
   @endif

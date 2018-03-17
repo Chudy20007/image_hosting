@@ -26,7 +26,7 @@ class UpdateAccountRequest extends FormRequest
         return [
             'email' => 'required',
             'name' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ];
     }
 }

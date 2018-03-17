@@ -1,8 +1,7 @@
-@extends('main') @section('content') 
-@if (Session::has('account_updated'))
+@extends('main') @section('content') @if (Session::has('account_updated'))
 <div class='row alert alert-success card'>
   <div class='col-md-12 text-center'>
-  <b>  {{Session::get('account_updated')}} </b>
+    <b> {{Session::get('account_updated')}} </b>
   </div>
 </div>
 @endif
@@ -44,9 +43,8 @@
           !!} {!! Form::submit('Deactivate',['class'=>'btn btn-info']) !!} {{ Form::close() }} </a>
         </td>
         <td> {!! Form::open(['method'=>'POST','class'=>'form-horizontal','action'=>['AdminController@activate',$user->id]]) !!}
-          {!! Form::hidden('_method','PATCH',['class'=>'form-control'])
-          !!}
-          {!! Form::hidden('id',$user->id,['class'=>'form-control']) !!} {!! Form::submit('Activate',['class'=>'btn btn-info']) !!} {{ Form::close() }} </a>
+          {!! Form::hidden('_method','PATCH',['class'=>'form-control']) !!} {!! Form::hidden('id',$user->id,['class'=>'form-control'])
+          !!} {!! Form::submit('Activate',['class'=>'btn btn-info']) !!} {{ Form::close() }} </a>
         </td>
       </tr>
       @endforeach

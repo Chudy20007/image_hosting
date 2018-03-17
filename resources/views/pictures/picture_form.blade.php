@@ -28,14 +28,14 @@
 
 @if (Auth::user()->isAdmin())
 <div class='form-group'>
-                <div class='col-md-4 control-label'>
-                        {!! Form::label('active','Active:') !!}
-                </div>
-                <div class='col-md-12 col-sm-12'>
-                        {{ Form::select('active', array('1'=>'yes','0'=>'no'),['class'=>'formOption']) }}
-                </div>
+        <div class='col-md-4 control-label'>
+                {!! Form::label('active','Active:') !!}
         </div>
-        @endif
+        <div class='col-md-12 col-sm-12'>
+                {{ Form::select('active', array('1'=>'yes','0'=>'no'),['class'=>'formOption']) }}
+        </div>
+</div>
+@endif
 <div class='form-group'>
         <div class='col-md-4 control-label'>
                 {!! Form::label('active_comments','Comments:') !!}
@@ -46,13 +46,13 @@
 </div>
 
 <div class='form-group'>
-                <div class='col-md-4 control-label'>
-                        {!! Form::label('active_ratings','Ratings:') !!}
-                </div>
-                <div class='col-md-12 col-sm-12 form-select-control'>
-                        {{ Form::select('active_ratings' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
-                </div>
+        <div class='col-md-4 control-label'>
+                {!! Form::label('active_ratings','Ratings:') !!}
         </div>
+        <div class='col-md-12 col-sm-12 form-select-control'>
+                {{ Form::select('active_ratings' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
+        </div>
+</div>
 
 <div class='form-group'>
         <div class='col-md-4 control-label'>

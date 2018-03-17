@@ -27,7 +27,7 @@ class CreateCommentRequest extends FormRequest
         return [
             'user_id' => 'required',
             'picture_id' => 'required',
-            'comment' => 'required'
+            'comment' => 'required',
             //
         ];
 

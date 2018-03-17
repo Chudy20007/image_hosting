@@ -12,16 +12,16 @@ class AlbumRating extends Model
         'created_at',
         'updated_at',
         'is_active',
-        'rate'
+        'rate',
     ];
 
     public function album()
     {
-        return $this->belongsTo('App\Album','album_id','id');
+        return $this->belongsTo('App\Album', 'album_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

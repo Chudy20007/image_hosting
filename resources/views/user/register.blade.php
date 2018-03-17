@@ -1,8 +1,8 @@
 @extends('main') @section('content')
 <div class="container">
     <div class="row">
-            <div class="col-md-1">
-            </div>
+        <div class="col-md-1">
+        </div>
         <div class="col-md-10 picture">
             <div class="panel panel-default card">
                 <div class="panel-heading"></div>
@@ -54,8 +54,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-                        {{ Form::hidden('user_id',$user->id) }}
-                        @if (Auth::user()->isAdmin()) 
+                        {{ Form::hidden('user_id',$user->id) }} @if (Auth::user()->isAdmin())
                         <div class="form-group">
                             <label for="password-confirm" class="col-md-4 control-label label">Priviliges:</label>
 
@@ -97,8 +96,8 @@
             </div>
         </div>
         <div class="col-md-1">
-            </div>
+        </div>
     </div>
-    
+
 </div>
 @endsection

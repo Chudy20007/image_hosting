@@ -1,4 +1,3 @@
-
 <div class='form-group'>
         <div class='col-md-4 control-label'>
                 {!! Form::label('title','Album name:') !!}
@@ -21,13 +20,13 @@
                 {!! Form::label('pictures','Pictures:') !!}
         </div>
         <div class='col-md-12'>
-                       <select name='pictures_id[]' id='pictures_id[]' class="form-control" multiple>
+                <select name='pictures_id[]' id='pictures_id[]' class="form-control" multiple>
                         @foreach ($pictures as $picture)
-                        
-                        <option value="{{$picture->id}}">{{$picture->title}} (created:  {{$picture->updated_at}})</option>
-                        
-                          @endforeach
-                       </select>
+
+                        <option value="{{$picture->id}}">{{$picture->title}} (created: {{$picture->updated_at}})</option>
+
+                        @endforeach
+                </select>
         </div>
 </div>
 
@@ -49,14 +48,14 @@
         </div>
 </div>
 <div class='form-group'>
-                <div class='col-md-4 control-label'>
-                        {!! Form::label('active_ratings','Ratings:') !!}
-                </div>
-                <div class='col-md-12 col-sm-12 form-select-control'>
-                        {{ Form::select('active_ratings' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
-                </div>
+        <div class='col-md-4 control-label'>
+                {!! Form::label('active_ratings','Ratings:') !!}
         </div>
-        
+        <div class='col-md-12 col-sm-12 form-select-control'>
+                {{ Form::select('active_ratings' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
+        </div>
+</div>
+
 <div class='form-group'>
         <div class='col-md-4 control-label'>
                 {!! Form::label('uploadLink','Upload link:') !!}

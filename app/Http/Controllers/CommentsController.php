@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\AlbumComment;
 use App\Comment;
 use App\Http\Requests\CreateCommentRequest;
 use App\Picture;
-use App\AlbumComment;
 use Auth;
 use Request;
 use Session;
@@ -25,30 +25,26 @@ class CommentsController extends Controller
 
     public function create($id)
     {
-        
 
-            $comments_enabled = Picture::select('active_comments')->where('id', $id)->get();
-           
-            $user = Auth::user();
-            if (count($comments_enabled)>0)
-            {
-                if ($comments_enabled[0]->active_comments == 0 || $user == null) {
-                        return view("user.access_denied");
-                    }
+        $comments_enabled = Picture::select('active_comments')->where('id', $id)->get();
 
-                $hiddenValues = array();
-                $hiddenValues['user_id'] = $user->id;
-                $hiddenValues['picture_id'] = $id;
-
-            
-                if ($user != null ) {
-                    return view("comments.create")->with('hiddenValues', $hiddenValues);
-                }
+        $user = Auth::user();
+        if (count($comments_enabled) > 0) {
+            if ($comments_enabled[0]->active_comments == 0 || $user == null) {
+                return view("user.access_denied");
             }
-            else
-            return view('user.access_denied');
 
-        
+            $hiddenValues = array();
+            $hiddenValues['user_id'] = $user->id;
+            $hiddenValues['picture_id'] = $id;
+
+            if ($user != null) {
+                return view("comments.create")->with('hiddenValues', $hiddenValues);
+            }
+        } else {
+            return view('user.access_denied');
+        }
+
     }
     public function album_comment_create($id)
     {
@@ -56,7 +52,7 @@ class CommentsController extends Controller
         $hiddenValues = array();
         $hiddenValues['user_id'] = $user;
         $hiddenValues['picture_id'] = $id;
-        return view ('comments.create_album_comment')->with('hiddenValues',$hiddenValues);
+        return view('comments.create_album_comment')->with('hiddenValues', $hiddenValues);
     }
     public function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
@@ -70,16 +66,16 @@ class CommentsController extends Controller
     public function store_com(CreateCommentRequest $request)
     {
         $datas = Request::all();
-        $comD=array();
+        $comD = array();
         $comD['album_id'] = $datas['picture_id'];
-        $comD['user_id'] = $datas ['user_id'];
+        $comD['user_id'] = $datas['user_id'];
         $comD['comment'] = $datas['comment'];
         $com = AlbumComment::create($comD);
 
         Auth::user()->album_comments()->save($com);
 
         Session::flash('status', 'Comment to the album added!');
-        return redirect("albums/".$comD['album_id']);
+        return redirect("albums/" . $comD['album_id']);
     }
 
     public function store(CreateCommentRequest $request)
@@ -95,14 +91,16 @@ class CommentsController extends Controller
     }
 
     public function edit($id)
-    {   $comment = Comment::findOrFail($id);
+    {$comment = Comment::findOrFail($id);
 
-        if ($comment->user_id == $id || Auth::user()->isAdmin())
-        return view('comments.edit')->with('hiddenValues', $comment);
-        else
-        return view("user.access_denied"); 
+        if ($comment->user_id == $id || Auth::user()->isAdmin() || $comment->user_id == Auth::id()) {
+            return view('comments.edit')->with('hiddenValues', $comment);
+        } else {
+            return view("user.access_denied");
+        }
+
     }
-      
+
     public function album_com_update($id, CreateCommentRequest $request)
     {
         $datas = Request::all();
@@ -115,65 +113,63 @@ class CommentsController extends Controller
     }
 
     public function album_com_edit($id)
-    {   $comment = AlbumComment::findOrFail($id);
-        $comment['picture_id']=0;
-        if ($comment->user_id ==Auth::id() || Auth::user()->isAdmin())
-        return view('comments.album_com_edit')->with('hiddenValues', $comment);
-        else
-        return view("user.access_denied"); 
+    {$comment = AlbumComment::findOrFail($id);
+        $comment['picture_id'] = 0;
+        if ($comment->user_id == Auth::id() || Auth::user()->isAdmin()) {
+            return view('comments.album_com_edit')->with('hiddenValues', $comment);
+        } else {
+            return view("user.access_denied");
+        }
+
     }
 
     public function activate($id)
     {
-        Comment::where('id',$id)->where('is_active',false)->update([
-            'is_active' => true
-           ]);
+        Comment::where('id', $id)->where('is_active', false)->update([
+            'is_active' => true,
+        ]);
 
-      
-        switch(Auth::user()->isAdmin())
-        {
+        switch (Auth::user()->isAdmin()) {
             case true:
-            {
-                Session::flash('comment_updated', 'Comment has been activated!');
-                return redirect("comments_list");
-            }
+                {
+                    Session::flash('comment_updated', 'Comment has been activated!');
+                    return redirect("comments_list");
+                }
             case false:
-            {
-                Session::flash('account_updated', 'Comment has been activated!');
-                return view('pictures.index');
-            }
+                {
+                    Session::flash('account_updated', 'Comment has been activated!');
+                    return view('pictures.index');
+                }
 
             default:
-            {
-                return view('pictures.index'); 
-            }
-        }  
+                {
+                    return view('pictures.index');
+                }
+        }
     }
     public function destroy($id)
-    { 
-   
-        Comment::where('id',$id)->where('is_active',true)->update([
-            'is_active' => false
-           ]);
+    {
 
-      
-        switch(Auth::user()->isAdmin())
-        {
+        Comment::where('id', $id)->where('is_active', true)->update([
+            'is_active' => false,
+        ]);
+
+        switch (Auth::user()->isAdmin()) {
             case true:
-            {
-                Session::flash('comment_updated', 'Comment has been disactivated!');
-                return redirect("comments_list");
-            }
+                {
+                    Session::flash('comment_updated', 'Comment has been disactivated!');
+                    return redirect("comments_list");
+                }
             case false:
-            {
-                Session::flash('comment_updated', 'Comment has been disactivated!');
-                return view('comments_list');
-            }
+                {
+                    Session::flash('comment_updated', 'Comment has been disactivated!');
+                    return view('comments_list');
+                }
 
             default:
-            {
-                return view('pictures.index'); 
-            }
+                {
+                    return view('pictures.index');
+                }
         }
     }
     public function create_comment()
