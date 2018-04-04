@@ -35,6 +35,7 @@ $(function () {
     });
 
     $('.fa').on('click', function () {
+       
         console.log("{{Auth::id()}}");
         let parentID = $(this).parent().attr('class');
         let parent = $(this).parent();
@@ -75,6 +76,18 @@ $(function () {
             },
             data: JSON.stringify(rate),
         }).done(function (response) {
+            $('.container').prepend(response);
+            $('.alert').first().hide();
+
+            $('.alert').first().slideDown(2000).delay(2000).slideUp(2000);
+            $('alert').first().remove();
+
+
+        }).fail(function () {
+           
+            $('html').scrollTop(0);
+             
+           let response =  ("<div class='row alert alert-danger card text-center'><b>You can't rate! Please sign in!</b></div>");
             $('.container').prepend(response);
             $('.alert').first().hide();
 

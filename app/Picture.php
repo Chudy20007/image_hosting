@@ -19,6 +19,7 @@ class Picture extends Model
         'visibility',
         'uploadLink',
         'is_active',
+        'active_ratings',
         'active_comments',
 
     ];
@@ -60,13 +61,13 @@ class Picture extends Model
     public function album_average_rating()
     {
 
-        return round($this->hasMany('App\AlbumRating')->where('album_id', '=', $this->id)->avg('rate'), 2);
+        return round($this->hasMany('App\AlbumRating','album_id')->where('album_id', '=', $this->id)->avg('rate'), 2);
 
     }
 
     public function alb_comment()
     {
-        return $this->belongsTo('App\AlbumComment');
+        return $this->hasMany('App\AlbumComment','album_id')->where('album_id', '=', $this->id)->where('is_active', '=', true);
     }
 
     public function getCommentsCount()

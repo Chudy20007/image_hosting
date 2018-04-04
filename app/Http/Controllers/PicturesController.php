@@ -33,11 +33,13 @@ class PicturesController extends Controller
 
     public function find_pictures()
     {
+        if (Auth::user())
+        {
         if (Auth::user()->isAdmin())
         {
         $data=json_decode(file_get_contents('php://input'),true);
         $shares = Picture::with('comment.user','user','user_rate')
-        ->where('pictures.user_id','=',$data['user_id'])
+    //    ->where('pictures.user_id','=',$data['user_id'])
         ->where('pictures.title','LIKE','%'.$data['title'].'%')
        ->groupBy('pictures.id')
         ->get();
@@ -52,6 +54,18 @@ class PicturesController extends Controller
             ->groupBy('pictures.id')
             ->get();
         }
+        }
+        else
+        {
+            $data=json_decode(file_get_contents('php://input'),true);
+            $shares = Picture::with('comment.user','user','user_rate')
+            ->where('pictures.is_active','=',true)
+            ->where('pictures.visibility','=','public')
+            ->where('pictures.title','LIKE','%'.$data['title'].'%')
+            ->groupBy('pictures.id')
+            ->get();
+        }
+       
             return json_encode($shares);
  
     }

@@ -215,12 +215,12 @@ class AdminController extends Controller
 
         switch ($user = Auth::user()->isAdmin()) {
             case true:
-                { $ratings = ImageRating::with('user', 'picture')
+                { $ratings = ImageRating::with('user','picture')
                         ->groupBy('image_ratings.id')
                         ->latest()
                         ->get();
 
-                    return view('admin.pictures_ratings__list')->with('ratings', $ratings);
+                    return view('admin.pictures_ratings_list')->with('ratings', $ratings);
 
                 }
             case false:

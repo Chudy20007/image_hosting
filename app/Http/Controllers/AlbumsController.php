@@ -249,12 +249,24 @@ class AlbumsController extends Controller
     public function find_albums()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        if (Auth::user()->isAdmin()) {
-            $shares = Album::with('comment.user', 'user', 'user_rate')
-                ->where('albums.user_id', '=', $data['user_id'])
-                ->where('albums.title', 'LIKE', '%' . $data['title'] . '%')
-                ->groupBy('albums.id')
-                ->get();
+        if (Auth::user())
+        {
+            if (Auth::user()->isAdmin())
+            {
+                $shares = Album::with('comment.user', 'user', 'user_rate')
+                  //  ->where('albums.user_id', '=', $data['user_id'])
+                    ->where('albums.title', 'LIKE', '%' . $data['title'] . '%')
+                    ->groupBy('albums.id')
+                    ->get();
+            }
+            else {
+                $shares = Album::with('comment.user', 'user', 'user_rate')
+                    ->where('albums.is_active', '=', true)
+                    ->where('albums.visibility', '=', 'public')
+                    ->where('albums.title', 'LIKE', '%' . $data['title'] . '%')
+                    ->groupBy('albums.id')
+                    ->get();
+            }
         } else {
             $shares = Album::with('comment.user', 'user', 'user_rate')
                 ->where('albums.is_active', '=', true)
@@ -425,7 +437,7 @@ class AlbumsController extends Controller
         if ($albums->isEmpty()) {
             return view('pictures.not_found');
         }
-
+      
         return view('albums.index')->with('albums', $albums);
     }
 

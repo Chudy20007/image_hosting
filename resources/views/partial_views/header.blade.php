@@ -76,7 +76,7 @@
   <a class='menuOptionRight' href="{{URL::asset('logout')}}">
     Logout</a>
   <a class='menuOptionRight' href="{{URL::asset('user/'.Auth::user()->id)}}">
-    <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$src[0]." .jpg ")}}">
+    <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$src[0].".jpg ")}}">
   </a>
   @else
   <a class='menuOptionRight' href="{{URL::route('login')}}">Login</a>

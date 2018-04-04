@@ -8,6 +8,8 @@ class ImageRatingController extends Controller
 {
     public function store_rate()
     {
+      
+    
         $data = json_decode(file_get_contents('php://input'), true);
         $check = ImageRating::where('picture_id', $data['picture_id'])->where('user_id', $data['user_id'])->where('is_active', true)->first();
 

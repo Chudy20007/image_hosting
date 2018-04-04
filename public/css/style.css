@@ -252,6 +252,23 @@ ol>li>ul>li a:hover {
   z-index: 12;
 }
 
+.footer-img
+{
+  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  opacity:0.6;
+  margin-left:auto;
+  margin-top:1rem;
+  width:4rem;
+  height:4rem;
+}
+
+.footer-img:hover
+{
+  opacity:1;
+}
+
 .z:hover {
   display: initial;
 }
@@ -394,6 +411,15 @@ label {
   float: left;
   margin-top: .5rem;
   padding: 0;
+  opacity:0.6;
+}
+
+.logo:hover
+{
+  transition: all 0.6s ease;
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  opacity:1;
 }
 
 .logo>img {

@@ -101,7 +101,7 @@
                         <span> ({{$pict->updated_at}})</span>
 
                         <a href="{{URL::asset('/user/'.$pict->user_id)}}" class="quick_jump">
-                            <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$pict->user_id." .jpg ")}}">{{$pict->user->name}}</a> wrote: {{$pict->comment }}
+                            <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$pict->user_id.".jpg ")}}">{{$pict->user->name}}</a> wrote: {{$pict->comment }}
 
                     </cite>
                     <div class="row text-right">

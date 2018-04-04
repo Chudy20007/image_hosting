@@ -78,7 +78,7 @@
                 <cite>
                     <span> ({{$pict->updated_at}})</span>
                     <a href="user/{{$pict->com_user_id}}" class="quick_jump">
-                        <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$pict->usr_id." .jpg ")}}">{{$pict->usr_name}}</a> wrote: {{$pict->album_comment}}</cite>
+                        <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$pict->usr_id.".jpg ")}}">{{$pict->usr_name}}</a> wrote: {{$pict->album_comment}}</cite>
             </blockquote>
 
 

@@ -15,7 +15,7 @@
     <div class='col-md-6 col-sm-12 picture text-center'>
         <h2>Profile</h2>
         <a class='profile-data' href="{{URL::asset('user/'.$pictures[0]->user->id)}}">
-            <img class="img-thumbnail picture-icon" src="{{ URL::asset('css/img/avatars/'.$pictures[0]->user->id." .jpg ")}}">
+            <img class="img-thumbnail picture-icon" src="{{ URL::asset('css/img/avatars/'.$pictures[0]->user->id.".jpg ")}}">
         </a>
         </br>
         <b> Name: </b>

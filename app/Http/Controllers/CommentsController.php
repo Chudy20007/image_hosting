@@ -185,6 +185,6 @@ class CommentsController extends Controller
             'comment' => $datas['comment'],
         ], $request->all());
         Session::flash('status', 'Comment updated!');
-        return redirect('pictures');
+        return redirect('pictures/'.$datas['picture_id']);
     }
 }

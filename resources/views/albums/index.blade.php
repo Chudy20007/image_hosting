@@ -75,9 +75,13 @@
                     @endif
             </div>
             @endif
+            <span class='image-comments'>Average rating:
+                <b>{{$album->album_average_rating()}} </b>
+            </span>
+            </br>
             <a href="albums/{{$album->id}}">
                 <img style="margin-left:5px" src="{{URL::asset('css/img/speech-message.png')}}" placeholder="comments" />
-                <span class='image-comments'>{{$album->getCommentsCount()->count()}} comment(s)</span>
+                <span class='image-comments'>{{$album->alb_comment()->count()}} comment(s)</span>
             </a>
             <br/>
 

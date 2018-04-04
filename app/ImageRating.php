@@ -10,6 +10,8 @@ class ImageRating extends Model
         'picture_id',
         'user_id',
         'created_at',
+        'active_ratings',
+        
         'updated_at',
         'is_active',
         'rate',
