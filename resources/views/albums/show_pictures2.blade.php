@@ -110,11 +110,12 @@
                     <span> ({{$pict->updated_at}})</span>
                     <a href="{{URL::asset('user/'.$pict->user_id)}}" class="quick_jump">
                         <img class="small-img" src="{{ URL::asset('css/img/avatars/'.$pict->user_id.".jpg ")}}">{{$pict->user->name}}</a> wrote: {{$pict->comment}}</cite>
+                        @if(Auth::id() == $pict->user_id) @php $hiddenValues=[ 'user_id' =>$pict->user_id, 'picture_id'=>$pict->id ]; @endphp @include('pictures.error_form')
+                        {!! Form::model($pict,['method'=>'POST','files' => true,'class'=>'form-horizontal','action'=>['CommentsController@album_com_edit',$pict->id]])
+                        !!} {!!Form::hidden('user_id',$pict->user_id['user_id'])!!} {!! Form::submit('Edit',['class'=>'btn btn-info'])
+                        !!} {!! Form::close() !!} @endif
             </blockquote>
-            @if(Auth::id() == $pict->user_id) @php $hiddenValues=[ 'user_id' =>$pict->user_id, 'picture_id'=>$pict->id ]; @endphp @include('pictures.error_form')
-            {!! Form::model($pict,['method'=>'POST','files' => true,'class'=>'form-horizontal','action'=>['CommentsController@album_com_edit',$pict->id]])
-            !!} {!!Form::hidden('user_id',$pict->user_id['user_id'])!!} {!! Form::submit('Edit',['class'=>'btn btn-info'])
-            !!} {!! Form::close() !!} @endif
+
 
         </div>
 

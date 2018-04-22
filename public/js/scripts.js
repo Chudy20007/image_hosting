@@ -258,7 +258,7 @@ $(function () {
         
             <div class="row">
                 <div class="col-md-12 col-sm-12">
-                    <a href="http://localhost/web/image_hosting/public/pictures/${picture.id}">
+                    <a href="http://localhost/web/image_hosting/public/albums/${picture.id}">
                         <img class="img-thumbnail picture-icon" src="http://localhost/web/image_hosting/public/${picture.title_photo}">
                     </a>
                 </div>

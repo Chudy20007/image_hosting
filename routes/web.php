@@ -32,7 +32,10 @@ Route::get('/edit','UserController@edit');
 Route::get('/create_comment','PicturesController@create_comment');
 Route::get('/albums/create','AlbumsController@create');
 Route::get('pictures/{id}/destroy','PicturesController@destroy');
-
+Route::post('albums/add_viewers','AlbumsController@store_viewers');
+Route::get('/albums/{id}/add_visitors','AlbumsController@show_visitors_form');
+Route::post('pictures/add_viewers','PicturesController@store_viewers');
+Route::get('/pictures/{id}/add_visitors','PicturesController@show_visitors_form');
 Route::delete('/albums/{id}','AlbumsController@destroy');
 Route::get('/albums/{id}','AlbumsController@show');
 Route::get('/albums/{id}/edit','AlbumsController@edit');

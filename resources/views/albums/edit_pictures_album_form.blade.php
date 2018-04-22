@@ -39,7 +39,14 @@
                 {{ Form::select('active_ratings' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
         </div>
 </div>
-
+<div class='form-group'>
+        <div class='col-md-4 control-label'>
+                {!! Form::label('active_comments','Comments:') !!}
+        </div>
+        <div class='col-md-12 col-sm-12 form-select-control'>
+                {{ Form::select('active_comments' ,array('1'=>'enabled','0'=>'disabled'),['class'=>'form-select-control']) }}
+        </div>
+</div>
 <div class='form-group'>
         <div class='col-md-4 control-label'>
                 {!! Form::label('uploadLink','Upload link:') !!}

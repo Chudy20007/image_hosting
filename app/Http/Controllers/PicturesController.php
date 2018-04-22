@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePictureRequest;
 use App\Picture;
 use App\User;
+use App\PictureVisitor;
 use Cookie;
 use Auth;
 use Illuminate\Support\Facades\Input;
@@ -30,6 +31,35 @@ class PicturesController extends Controller
   
         return view('pictures.index')->with('pictures', $pictures);
     }
+
+
+public function store_viewers(Request $request)
+{
+    $data= Request::all();
+    $counter=0;
+    $pic_id=$data['picture_id'];
+
+    foreach($data['visitors'] as $visitor)
+    {
+        $viewers[] =[
+            'user_id' => $visitor,
+            'picture_id' => $pic_id
+        ];
+        $counter++;
+    }
+
+    PictureVisitor::insert($viewers);
+    Session::flash('account_updated', 'Viewers have been added@');
+    return redirect("pictures");
+}
+
+public function show_visitors_form($id)
+{
+    $picture = Picture::where('user_id',Auth::id())->where('id','=',$id)->get()->first();
+    $users = User::where('is_active',true)->pluck('name','id');
+
+    return view ('pictures.add_viewers')->with('users',$users)->with('picture',$picture);
+}
 
     public function find_pictures()
     {
@@ -235,10 +265,13 @@ class PicturesController extends Controller
             ->orderBy('comments.updated_at', 'desc')
             ->get(['comments.comment', 'users.name', 'comments.created_at', 'comments.updated_at', 'pictures.title', 'pictures.source', 'pictures.id', 'comments.user_id','pictures.user_id', 'pictures.visited_count', 'pictures.active_comments']);
           */
-          $picture = Picture::with('comment.user','user')
+          $picture = Picture::with('comment.user','user','visitors')
           ->where('pictures.is_active','=',true)
           ->where('pictures.uploadLink','=',$uploadLink)
-          ->get();        
+          ->get();  
+           
+          if($picture[0]->visitors->count()==0)
+          return view('user.access_denied');
          if($picture->isEmpty())
           return view('pictures.not_found');  
           $picture[0]->comment= $picture[0]->comment->where('is_active', '=', true)->sortByDesc('updated_at');  

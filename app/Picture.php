@@ -24,6 +24,10 @@ class Picture extends Model
 
     ];
 
+    public function visitors()
+    {
+        return $this->hasMany('App\PictureVisitor', 'picture_id', 'id')->where('user_id','=',Auth::id());
+    }
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id', 'id');

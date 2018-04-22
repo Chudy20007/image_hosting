@@ -19,6 +19,10 @@ class Album extends Model
         'description',
     ];
 
+    public function visitors()
+    {
+        return $this->hasMany('App\AlbumVisitor', 'album_id', 'id')->where('user_id','=',Auth::id());
+    }
     public function albums()
     {
         return $this->belongsToMany('App\Picture', 'id')->withTimestamps();

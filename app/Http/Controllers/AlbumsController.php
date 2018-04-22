@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Album;
 use App\AlbumPicture;
+use App\AlbumVisitor;
 use App\Http\Requests\CreateAlbumRequest;
 use App\Picture;
 use App\User;
@@ -20,6 +21,37 @@ class AlbumsController extends Controller
         return view('albums.create')->with('pictures', $pictures);
     }
 
+
+
+    public function store_viewers(Request $request)
+    {
+        $data= Request::all();
+        $counter=0;
+        $album_id=$data['album_id'];
+    
+        foreach($data['visitors'] as $visitor)
+        {
+            $viewers[] =[
+                'user_id' => $visitor,
+                'album_id' => $album_id
+            ];
+            $counter++;
+        }
+    
+        AlbumVisitor::insert($viewers);
+        Session::flash('account_updated', 'Viewers have been added@');
+        return redirect("albums");
+    }
+    
+    public function show_visitors_form($id)
+    {
+        $picture = Album::where('user_id',Auth::id())->where('id','=',$id)->get()->first();
+        $users = User::where('is_active',true)->pluck('name','id');
+    
+        return view ('albums.add_viewers')->with('users',$users)->with('album',$picture);
+    }
+
+
     public function edit_pic($id)
     {
         $user_id = Auth::id();
@@ -35,6 +67,7 @@ class AlbumsController extends Controller
         Album::where('id', $album_id)->update([
             'visibility' => $datas['visibility'],
             'active_ratings' => $datas['active_ratings'],
+            'active_comments' => $datas['active_comments'],
             'upload_link' => $uploadLink,
 
         ]);
@@ -117,7 +150,7 @@ class AlbumsController extends Controller
     public function show_alb($uploadLink)
     {
 
-        $shares = Album::with('comment.user', 'user', 'picture.picture')
+        $shares = Album::with('comment.user', 'user', 'picture.picture','visitors')
 
             ->where('albums.upload_link', '=', $uploadLink)
             ->where('albums.is_active', '=', true)
@@ -140,7 +173,9 @@ class AlbumsController extends Controller
         dd($shares[0]->user);
 
          */
-
+      
+        if($shares[0]->visitors->count()==0)
+        return view('user.access_denied');
         if ($shares->isEmpty()) {
             return view('pictures.not_found');
         }

@@ -119,6 +119,13 @@
                     <button class="btn-info btn col-md-12" value="" type="button">Delete picture</button>
                 </a>
             </div>
+            <br/>
+            <div class='row text-center'>
+                <a class="col-md-12" href="{{URL::asset('/pictures/'.$picture->id.'/add_visitors')}}">
+                    <button class="btn-info btn col-md-12" value="" type="button">Add viewers</button>
+                </a>
+            </div>
+            <br/>
         </div>
     </div>
     <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
